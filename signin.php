@@ -1,3 +1,55 @@
+<?php
+// Configuration de la base de données
+$host = 'localhost';
+$dbname = 'agora';
+$username = 'root'; 
+$password = ''; 
+
+session_start();
+$error_message = '';
+
+try {
+    // Connexion à la base de données
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $email = htmlspecialchars($_POST['email']);
+        $password = $_POST['password'];
+
+        
+        $sql = "SELECT * FROM Utilisateur WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            
+            if (password_verify($password, $user['mot_de_passe'])) {
+                
+                $_SESSION['id_utilisateur'] = $user['id_utilisateur'];
+                $_SESSION['nom'] = $user['nom'];
+                $_SESSION['type_utilisateur'] = $user['type_utilisateur'];
+
+                
+                header('Location: index.php'); 
+                exit();
+            } else {
+                $error_message = 'Mot de passe incorrect.';
+            }
+        } else {
+            $error_message = "Aucun utilisateur trouvé avec cet email.";
+        }
+    }
+} catch (PDOException $e) {
+    $error_message = 'Erreur : ' . $e->getMessage();
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,7 +73,7 @@
                     <h2 class="text-center mb-2 h3 fw-bolder">Connexion à votre compte</h2>
                     <p class="text-center text-muted mb-4">Heureux de vous revoir!</p>
 
-                    <form action="login.php" method="POST">
+                    <form action="signin.php" method="POST">
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text bg-white">
