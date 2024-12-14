@@ -1,0 +1,131 @@
+body {
+    font-family: "Satoshi", sans-serif;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.main {
+    margin-left: 13px;
+}
+
+/* .list-group-item {
+    display: flex;
+    align-items: flex-start; 
+    padding: 10px;
+} */
+.list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.d-flex {
+    display: flex;
+}
+.img-thumbnail {
+    width: 90px; 
+    height: 120px;
+    object-fit:contain
+    
+}
+.btn-lg {
+    margin-left: auto;
+}
+.list-group-item .w-100 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espacement optimal vertical */
+    height: 110px; /* Correspond à la hauteur des images */
+}
+
+.text {
+    margin-left: 30px;
+}
+
+.prix {
+    margin-bottom: 5px; 
+    margin-right: 105px;
+}
+
+.stock {
+    font-size: 0.9rem;
+    color: green;
+    margin-top: -20px; 
+    margin-bottom: -20px; 
+    margin-right: 90px;
+}
+
+.stockEpuise {
+    font-size: 0.9rem;
+    color: blue;
+    margin-top: -20px; 
+    margin-bottom: -20px; 
+    margin-right: 63px;
+}
+.supprimer {
+    margin-right: 60px;
+    
+}
+.acheter {
+    margin-left: 30px;
+}
+
+.toutAcheter {
+    margin-bottom: 4px;
+}
+
+.list-group-item .btn-primary {
+    align-self: flex-start; /* Place le bouton en bas à gauche */
+    margin-top: auto; /* Colle au bas de l'image */
+}
+
+.list-group-item .supprimer {
+    align-self: flex-end; /* Bouton "Supprimer" aligné à droite */
+    margin-top: auto;
+}
+
+.prixTotal {
+    margin-left: 690px;
+    height: 33px;
+    width: 120px;
+    margin-bottom: 5px;
+    text-align: center;
+    margin-top: 3px; /* Ajustez cette valeur pour uniformiser l'espacement en haut */
+    display: flex;
+    align-items: center;
+}
+
+.titre {
+    position: relative;
+    padding-left: 10px;
+    font-size: 1.5rem; /* Ajustez la taille de la police selon vos besoins */
+    color: #000; /* Couleur du texte */
+}
+
+.titre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 7px; /* Largeur du rectangle */
+    background-color: blue; /* Couleur du rectangle */
+}
+
+.payment-logo {
+    width: 50px; /* Ajustez la taille selon vos besoins */
+    margin: 0 10px; /* Espace entre les logos */
+}
+
+
+
+

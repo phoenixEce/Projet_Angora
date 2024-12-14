@@ -1,0 +1,92 @@
+body {
+    font-family: "Satoshi", sans-serif;
+  }
+  .table-container {
+    margin: 20px;
+  }
+  .footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  .footer .footer-section {
+    margin-bottom: 10px;
+  }
+  .pagination .page-link {
+    white-space: nowrap; /* Empêche l'écrasement des liens */
+  }
+  .filters-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .filters-container .form-select {
+    width: 152px; /* Ajustez la largeur selon vos besoins */
+  }
+  .icon-buttons {
+    display: flex;
+    gap: -10px;
+    margin-left: 1200px;
+  }
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espace entre les colonnes */
+  }
+  .form-group {
+    flex: 1 1 45%; /* Prend 45% de l'espace pour chaque champ */
+  }
+  .required {
+    color: red;
+    margin-left: 5px;
+  }
+  #Addbutton {
+    display: flex;
+    margin-right: 30%;
+    justify-content: space-between;
+  }
+  #Cancelbutton {
+    margin-left: 20%;
+  }
+
+  #Annulebutton {
+    margin-right: 3%;
+  }
+
+  #confirmDelete {
+    margin-right: 23%;
+  }
+
+  .text-center {
+    text-align: center;
+    margin-left: 30%;
+  }
+
+  .selected {
+    background-color: #f0f8ff; /* Changement de couleur de fond en bleu clair */
+    color: #2920a7; /* Couleur de texte noire pour contraste */
+  }
+
+  #no-users-message {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .titre {
+    position: relative;
+    padding-left: 10px;
+    /* font-size: 1.5rem; Ajustez la taille de la police selon vos besoins */
+    color: #000; /* Couleur du texte */
+    white-space: nowrap;
+  }
+
+  .titre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 7px; /* Largeur du rectangle */
+    background-color: blue; /* Couleur du rectangle */
+  }

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Agora Francia</title>
+  </head>
+  <body>
+    <header class="bg-light p-3">
+      <h1>AGORA FRANCIA</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Catégorie</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Articles à vendre</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <p class="bienvenue"> Bienvenue <span class="username"> Njeunkam Sandrine !</span></p>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <img
+            src="../images/couronne1.jpg"
+            alt="Couronne en diamant"
+            class="img-fluid .fixed-size image"
+          />
+        </div>
+        <div class="col-md-6 text">
+            
+          <h2 class="mb-1 titre">Couronne en diamant</h2>
+          <div class="rating mb-1">★★★★☆</div>
+          <p class="description mb-3">
+            Couronne en diamant de très bonne qualité, alliant élégance et
+            raffinement,<br />
+            idéale pour les occasions spéciales ou pour sublimer votre
+            collection de bijoux.
+          </p>
+          <h5 class="mb-3 font-weight-bold">Temps restant:</h5>
+          <p class="timer mb-2">
+            <span id="days" class="font-weight-bold"></span> jours &nbsp;:
+            <span id="hours" class="font-weight-bold"></span> heures &nbsp;:
+            <span id="minutes" class="font-weight-bold"></span> minutes &nbsp;:
+            <span id="seconds" class="font-weight-bold"></span> secondes
+          </p>
+          <h5 id="timer" class="font-weight-bold mb-3"></h5>
+          <!-- Timer affiché ici en dessous -->
+          <p class="mb-2">
+            Prix fixé: <span class="font-weight-bold">350€</span>
+          </p>
+          <p class="mb-2">
+            Prix proposé:
+            <span class="font-weight-bold" id="prixPropose">800€</span>
+          </p>
+        </div>
+      </div>
+      <div>
+        <!-- Bouton pour ouvrir le modal -->
+        <button
+          class="btn btn-primary"
+          id="button"
+          data-toggle="modal"
+          data-target="#paymentModal"
+        >
+          Enchérir
+        </button>
+      </div>
+    </div>
+
+    <footer class="bg-light text-center p-3 mt-5">
+      <p>Copyright © 2016-2023. Tout droit réservé.</p>
+      <p>TÉLÉPHONE : +33 1 23 45 67 89</p>
+    </footer>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="paymentModal"
+      tabindex="-1"
+      aria-labelledby="paymentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel">
+              Veuillez saisir votre montant
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-success d-none" id="successMessage"></div>
+            <div class="alert alert-danger d-none" id="alertMessage"></div>
+            <form id="paymentForm">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="montant">Montant (€)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="montant"
+                    required
+                    placeholder="Entrez un montant"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Annuler
+            </button>
+            <button type="button" class="btn btn-primary" id="validateButton">
+              Valider
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

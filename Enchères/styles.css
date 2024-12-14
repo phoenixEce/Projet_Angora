@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header, .footer {
+    background-color: #f8f9fa;
+}
+
+.rating {
+    color: gold;
+}
+
+.text {
+    margin-right: -300px;
+}
+
+.image {
+    margin-left: 190px;
+    width: 300px; 
+    height: 290px;
+    object-fit:contain;
+}
+
+
+#button {
+    margin-top: 20px;
+    height: 35px;
+    border-radius: 4px;
+    margin-left: 40%;
+    width: 15%;
+}
+
+.description {
+    line-height: 1.5; /* Augmente l'espacement entre les lignes */
+    margin-bottom: 20px; /* Ajoute de l'espace en bas du paragraphe */
+    font-size: 13px;
+}
+
+.timer {
+    font-size: 10px;
+}
+
+.bienvenue {
+    margin-left: 1900px;
+    color: black;
+    font-size: 12px;
+}
+
+.bienvenue .username {
+    color: blue;
+}

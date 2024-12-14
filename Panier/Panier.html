@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panier - Agora Francia</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <h5>Menu</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <i class="fas fa-home"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-tags"></i> Catégorie
+                </a>
+                <ul class="nav flex-column ml-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Articles rares</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Articles haut de gamme</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Articles réguliers</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-filter"></i> Filtrer
+                </a>
+                <ul class="nav flex-column ml-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Achat immédiat</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Transactions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Meilleure offre</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-cog"></i> Paramètres
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-2 ml-sm-4 col-lg-9 px-0 main">
+          <div class="row">
+            <div class="col-md-9 mt-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="titre">Vos différents produits</h5>
+                <div class="alert alert-info prixTotal">Total: 897€</div>
+                <button class="btn btn-primary btn-sm toutAcheter">
+                  Tout acheter
+                </button>
+              </div>
+              <div class="list-group main">
+                <div class="list-group-item d-flex align-items-start">
+                  <img
+                    src="../images/couronne1.jpg"
+                    alt="Couronne "
+                    class="img-thumbnail text"
+                  />
+                  <div
+                    class="d-flex flex-column justify-content-between w-100 ml-3"
+                  >
+                    <div>
+                      <div
+                        class="d-flex justify-content-between align-items-start"
+                      >
+                        <span class="text">Couronne</span>
+                        <span class="badge badge-primary prix">399€</span>
+                      </div>
+                      <p class="text">Couronne en diamant.</p>
+                      <p class="text-right stock">En stock</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                      <button class="btn btn-primary btn-sm acheter">
+                        Acheter
+                      </button>
+                      <button class="btn btn-dark btn-sm ml-2 supprimer">
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start">
+                  <img src="../images/robe1.jpg" alt="Robe" class="img-thumbnail text" />
+                  <div
+                    class="d-flex flex-column justify-content-between w-100 ml-3"
+                  >
+                    <div>
+                      <div
+                        class="d-flex justify-content-between align-items-start"
+                      >
+                        <span class="text">Robe d'opéra</span>
+                        <span class="badge badge-primary prix">399€</span>
+                      </div>
+                      <p class="text">Robe d'opéra en soie.</p>
+                      <p class="text-right stock">En stock</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                      <button class="btn btn-primary btn-sm acheter">
+                        Acheter
+                      </button>
+                      <button class="btn btn-dark btn-sm ml-2 supprimer">
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="list-group-item d-flex align-items-start">
+                  <img
+                    src="../images/talon1.jpg"
+                    alt="Talon"
+                    class="img-thumbnail text"
+                  />
+                  <div
+                    class="d-flex flex-column justify-content-between w-100 ml-3"
+                  >
+                    <div>
+                      <div
+                        class="d-flex justify-content-between align-items-start"
+                      >
+                        <span class="text">Talon</span>
+                        <span class="badge badge-primary prix">199€</span>
+                      </div>
+                      <p class="text">Talon à aiguille.</p>
+                      <p class="text-right stockEpuise">Stock épuisé</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                      <button class="btn btn-primary btn-sm acheter">
+                        Acheter
+                      </button>
+                      <button class="btn btn-dark btn-sm ml-2 supprimer">
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5>Total</h5>
+                            <div class="alert alert-info mb-0 prixTotal">
+                                Total: 897€
+                            </div>
+                            <button class="btn btn-primary btn-sm">Tout acheter</button>
+                        </div> -->
+              <!-- <div class="d-flex justify-content-between align-items-end mt-4">
+                            
+                            <div class="alert alert-info">
+                                Total: 897€
+                            </div>
+                        </div> -->
+            </div>
+          </div>
+
+          <footer class="mt-5">
+            <p>AGORA FRANCIA</p>
+            <p>Téléphone : +33 1 23 45 67 89</p>
+            <p>&copy; 2004-2025</p>
+          </footer>
+        </main>
+
+        <!-- Conteneur pour le message de succès -->
+        <!-- <div
+          id="successMessage"
+          class="alert alert-success d-none"
+          role="alert"
+        >
+          Les éléments ont été ajoutés avec succès !
+        </div> -->
+
+        <!-- Modal paiement -->
+
+        <div
+          class="modal fade"
+          id="paymentModal"
+          tabindex="-1"
+          aria-labelledby="paymentModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">
+                  Veuillez entrer vos informations de paiement
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Message d'alerte -->
+                <div class="alert alert-success d-none" id="successMessage">
+                  Les éléments ont été ajoutés avec succès !
+                </div>
+                <div class="alert alert-danger d-none" id="alertMessage"></div>
+                <!-- Logos de paiement -->
+                <div class="text-center mb-3">
+                  <img src="../images/visa.png" alt="Visa" class="payment-logo" />
+                  <img
+                    src="../images/CB.jpg"
+                    alt="CB"
+                    class="payment-logo"
+                  />
+                  <img src="../images/paypal.png" alt="PayPal" class="payment-logo" />
+                  <img
+                    src="../images/applepay.png"
+                    alt="Apple Pay"
+                    class="payment-logo"
+                  />
+                  <img
+                    src="../images/googlePay.png"
+                    alt="Google Pay"
+                    class="payment-logo"
+                  />
+                </div>
+                <form id="paymentForm">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="name">Nom *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        required
+                        pattern="[A-Za-z\s]+"
+                        title="Veuillez entrer uniquement des lettres."
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="cardNumber">N° de carte *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cardNumber"
+                        required
+                        pattern="\d{16}"
+                        title="Le numéro de carte doit comporter 16 chiffres."
+                      />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="expiryDate">Date d'expiration *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="expiryDate"
+                        placeholder="MM/AA"
+                        required
+                        pattern="(0[1-9]|1[0-2])\/\d{2}"
+                        title="Format requis : MM/AA."
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="securityCode">N° de sécurité *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="securityCode"
+                        required
+                        pattern="\d{3,4}"
+                        title="Le code de sécurité doit comporter 3 ou 4 chiffres."
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      value="1750€"
+                      id="totalAmount"
+                      readonly
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="validateButton"
+                >
+                  Valider
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- onclick="submitForm()" -->
+        <!-- Modal message succes -->
+
+        <!-- <div
+          class="modal fade"
+          id="successModal"
+          tabindex="-1"
+          aria-labelledby="successModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content text-center">
+              <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Succès</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="checkmark">
+                  <span>&#10003;</span>
+                </div>
+                <p>Votre paiement a été effectué avec succès !</p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                >
+                  Retour
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Modal de Confirmation de suppression -->
+        <div
+          class="modal fade"
+          id="confirmationModal"
+          tabindex="-1"
+          aria-labelledby="confirmationModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">
+                  Confirmer la Suppression
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cet article ?
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Annuler
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </body>
+</html>
