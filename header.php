@@ -1,3 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Démarrer la session si elle n'est pas déjà démarrée
+}
+
+ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes de redirection
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -698,7 +706,9 @@
                                 </form>
                                 <div class="d-flex">
                                     <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
-                                    <button class="btn btn-icon me-2"><i class="bi bi-cart fs-5"></i></button>
+                                    <button class="btn btn-icon me-2" onclick="window.location.href='cart.php'">
+                                         <i class="bi bi-cart fs-5"></i>
+                                    </button>
                                     <button class="btn btn-icon"><i class="bi bi-bell fs-5"></i></button>
                                 </div>
                             </div>

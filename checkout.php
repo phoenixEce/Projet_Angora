@@ -1,240 +1,160 @@
 <?php
-    include "header.php";
+session_start();
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id_utilisateur'])) {
+    header('Location: signin.php');
+    exit();
+}
+
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'agora';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $id_acheteur = $_SESSION['id_utilisateur'];
+
+    // Récupérer les articles dans le panier
+    $stmt = $pdo->prepare("SELECT p.id_panier, a.id_article, a.nom, a.prix, p.quantite, (a.prix * p.quantite) AS total FROM Panier p JOIN Article a ON p.id_article = a.id_article WHERE p.id_acheteur = :id_acheteur");
+    $stmt->execute([':id_acheteur' => $id_acheteur]);
+    $panier = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Calcul du total de la commande
+    $totalCommande = 0;
+    foreach ($panier as $item) {
+        $totalCommande += $item['total'];
+    }
+
+    // Gestion de la validation de la commande
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $code_postal = htmlspecialchars($_POST['code_postal']);
+        $adresse = htmlspecialchars($_POST['adresse']);
+        $telephone = htmlspecialchars($_POST['telephone']);
+        $email = htmlspecialchars($_POST['email']);
+        $mode_paiement = htmlspecialchars($_POST['mode_paiement']);
+        $date_transaction = date('Y-m-d H:i:s');
+
+        // Validation des champs
+        if (empty($nom) || empty($prenom) || empty($code_postal) || empty($adresse) || empty($telephone) || empty($email)) {
+            $error_message = "Tous les champs de facturation sont obligatoires.";
+        } elseif (!in_array($mode_paiement, ['Carte', 'Cheque-cadeau'])) {
+            $error_message = "Mode de paiement invalide.";
+        } else {
+            try {
+                $pdo->beginTransaction();
+
+                // Insérer une transaction pour chaque article du panier
+                $stmt = $pdo->prepare("INSERT INTO Transaction (id_acheteur, id_article, montant, date_transaction, mode_paiement, statut_transaction) VALUES (:id_acheteur, :id_article, :montant, :date_transaction, :mode_paiement, 'Reussie')");
+
+                foreach ($panier as $item) {
+                    $stmt->execute([
+                        ':id_acheteur' => $id_acheteur,
+                        ':id_article' => $item['id_article'],
+                        ':montant' => $item['total'],
+                        ':date_transaction' => $date_transaction,
+                        ':mode_paiement' => $mode_paiement,
+                    ]);
+                }
+
+                // Vider le panier
+                $deleteStmt = $pdo->prepare("DELETE FROM Panier WHERE id_acheteur = :id_acheteur");
+                $deleteStmt->execute([':id_acheteur' => $id_acheteur]);
+
+                $pdo->commit();
+                header('Location: confirmation.php?success=1');
+                exit();
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                $error_message = "Erreur lors de la validation de la commande : " . $e->getMessage();
+            }
+        }
+    }
+} catch (PDOException $e) {
+    die("Erreur : " . $e->getMessage());
+}
 ?>
-    <style>
-/*         .form-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
 
-        .form-control {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 12px;
-        }
-
-        .form-label {
-            color: #666;
-            margin-bottom: 8px;
-        } */
-
-        .required::after {
-            content: "*";
-            color: #dc3545;
-            margin-left: 4px;
-        }
-
-        .order-summary {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-        }
-
-        .product-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .product-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .payment-methods {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .payment-methods img {
-            height: 24px;
-            object-fit: contain;
-        }
-
-        .promo-container {
-            display: flex;
-            gap: 12px;
-            margin: 24px 0;
-        }
-
-        .btn-apply {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 4px;
-        }
-
-        .btn-order {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .btn-cancel {
-            background: #052c65;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .warning-text {
-            color: #dc3545;
-            font-size: 14px;
-            margin-top: 24px;
-        }
-    </style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation de commande</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="form-container mt-4">
-        <form>
-            <div class="row">
-                <!-- Left Column - Personal Details -->
-                <div class="col-md-6 mb-4">
-                    <h2 class="mb-4">Détails de facturation</h2>
-                    
-                    <div class="mb-3">
-                        <label class="form-label required">Nom</label>
-                        <input type="text" class="form-control p-3" required>
-                    </div>
+<div class="container mt-5">
+    <h1 class="mb-4">Validation de commande</h1>
 
-                    <div class="mb-3">
-                        <label class="form-label required">Prénom</label>
-                        <input type="text" class="form-control p-3" required>
-                    </div>
+    <?php if (!empty($error_message)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error_message) ?></div>
+    <?php endif; ?>
 
-                    <div class="mb-3">
-                        <label class="form-label required">Code postal</label>
-                        <input type="text" class="form-control p-3" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Adresse</label>
-                        <input type="text" class="form-control p-3" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Numéro de téléphone</label>
-                        <input type="tel" class="form-control p-3" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Email</label>
-                        <input type="email" class="form-control p-3" required>
-                    </div>
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Détails de facturation</h3>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" required>
                 </div>
-
-                <!-- Right Column - Order Summary -->
-                <div class="col-md-6">
-                    <div class="order-summary">
-                        <!-- Products -->
-                        <div class="product-item">
-                            <img src="images/closeup-shot-modern-cool-black-digital-watch-with-brown-leather-strap.jpg" alt="LCD Monitor" class="product-image">
-                            <div class="flex-grow-1">LCD Monitor</div>
-                            <div class="fw-bold">650€</div>
-                        </div>
-
-                        <div class="product-item">
-                            <img src="images/closeup-shot-modern-cool-black-digital-watch-with-brown-leather-strap.jpg" alt="H1 Gamepad" class="product-image">
-                            <div class="flex-grow-1">H1 Gamepad</div>
-                            <div class="fw-bold">1100€</div>
-                        </div>
-
-                        <!-- Totals -->
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>Livraison:</div>
-                            <div>Gratuite</div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-4">
-                            <div>Sous total:</div>
-                            <div class="fw-bold">1750€</div>
-                        </div>
-
-                        <!-- Payment Options -->
-                        <div class="mb-3">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="payment" id="bank">
-                                <label class="form-check-label" for="bank">
-                                    Bank
-                                </label>
-                            </div>
-                            <div class="payment-methods">
-                                <img src="assets/visa-logo-svgrepo-com.svg" alt="Visa">
-                                <img src="assets/mastercard-svgrepo-com.svg" alt="Mastercard">
-                                <img src="assets/paypal-svgrepo-com.svg" alt="PayPal">
-                                <img src="assets/apple-pay-svgrepo-com.svg" alt="Apple Pay">
-                                <img src="assets/google-pay-primary-logo-logo-svgrepo-com.svg" alt="Google Pay">
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" id="delivery" checked>
-                                <label class="form-check-label" for="delivery">
-                                    Payer à la livraison
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Promo Code -->
-                        <div class="promo-container">
-                            <input type="text" class="form-control" placeholder="Code promo">
-                            <button type="button" class="btn-apply">Appliquer</button>
-                        </div>
-
-                        <!-- Total -->
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="fw-bold">Total:</div>
-                            <div class="fw-bold">1750€</div>
-                        </div>
-
-                        <!-- Terms -->
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" required>
-                                <label class="form-check-label">
-                                    J'ai lu et j'accepte les conditions générales et la politique de confidentialité
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Sauvegarder ces informations pour un vérification rapide la prochaine fois
-                                </label>
-                            </div>
-                        </div>
-
-                        <p class="warning-text">
-                            <i class="bi bi-exclamation-circle"></i>
-                            Les commandes sont définitives et ne peuvent être annulées après 24 heures.
-                        </p>
-
-                        <!-- Action Buttons -->
-                        <div class="row g-2 mt-4">
-                            <div class="col">
-                                <button type="submit" class="btn-order">Commander</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn-cancel">Annuler</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="code_postal" class="form-label">Code postal</label>
+                    <input type="text" class="form-control" id="code_postal" name="code_postal" required>
+                </div>
+                <div class="mb-3">
+                    <label for="adresse" class="form-label">Adresse</label>
+                    <input type="text" class="form-control" id="adresse" name="adresse" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telephone" class="form-label">Numéro de téléphone</label>
+                    <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
             </div>
-        </form>
-    </div>
 
-    <?php
-    include "footer.php";
-?>
+            <div class="col-md-6">
+                <h3>Récapitulatif de commande</h3>
+
+                <?php foreach ($panier as $item): ?>
+                    <div class="d-flex justify-content-between">
+                        <div><?= htmlspecialchars($item['nom']) ?> (x<?= $item['quantite'] ?>)</div>
+                        <div><?= number_format($item['total'], 2) ?> €</div>
+                    </div>
+                <?php endforeach; ?>
+
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <strong>Total :</strong>
+                    <strong><?= number_format($totalCommande, 2) ?> €</strong>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Moyen de paiement</h5>
+                    <select name="mode_paiement" class="form-select" required>
+                        <option value="Carte">Carte</option>
+                        <option value="Cheque-cadeau">Chèque-cadeau</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Valider la commande</button>
+    </form>
+</div>
+</body>
+</html>
