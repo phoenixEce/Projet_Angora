@@ -1,8 +1,7 @@
 <?php
 include "header.php";
-include "db_connection.php"; // Connexion à la base de données
+include "../db_connection.php"; // Connexion à la base de données
 
-// Remplacez ceci par l'identifiant de l'utilisateur connecté
 
 $user_id = $_SESSION['id_utilisateur'];
 
@@ -60,11 +59,13 @@ $result = mysqli_stmt_get_result($stmt);
         padding: 16px 0;
         border-bottom: 1px solid #eee;
         cursor: pointer;
-        position: relative; /* Nécessaire pour placer un badge ou un point */
+        position: relative;
+        /* Nécessaire pour placer un badge ou un point */
     }
 
     .notification-item.read {
-        background-color: #f8f9fa; /* Couleur de fond pour les notifications lues */
+        background-color: #f8f9fa;
+        /* Couleur de fond pour les notifications lues */
     }
 
     .avatar {
@@ -128,22 +129,28 @@ $result = mysqli_stmt_get_result($stmt);
     </div>
 
     <div class="notifications-list">
-        <?php while ($notification = mysqli_fetch_assoc($result)): ?>
-            <div class="notification-item <?php echo $notification['statut'] === 'Non lue' ? '' : 'read'; ?>"
-                 data-notification-id="<?php echo $notification['id_notification']; ?>"
-                 onclick="markAsReadAndShowNotification(<?php echo htmlspecialchars(json_encode($notification), ENT_QUOTES, 'UTF-8'); ?>)">
-                <div class="avatar">
-                    <img src="images/image (1).jpeg" alt="Avatar">
-                    <?php if ($notification['statut'] === 'Non lue'): ?>
-                        <div class="notification-point"></div> <!-- Point rouge pour les notifications non lues -->
-                    <?php endif; ?>
+        <?php if ($result->num_rows != 0) { ?>
+            <?php while ($notification = mysqli_fetch_assoc($result)): ?>
+                <div class="notification-item <?php echo $notification['statut'] === 'Non lue' ? '' : 'read'; ?>"
+                    data-notification-id="<?php echo $notification['id_notification']; ?>"
+                    onclick="markAsReadAndShowNotification(<?php echo htmlspecialchars(json_encode($notification), ENT_QUOTES, 'UTF-8'); ?>)">
+                    <div class="avatar">
+                        <img src="images/image (1).jpeg" alt="Avatar">
+                        <?php if ($notification['statut'] === 'Non lue'): ?>
+                            <div class="notification-point"></div> <!-- Point rouge pour les notifications non lues -->
+                        <?php endif; ?>
+                    </div>
+                    <div class="notification-content">
+                        <div class="user-name">Utilisateur ID <?php echo $notification['id_utilisateur']; ?></div>
+                        <div class="notification-text"><?php echo $notification['message']; ?></div>
+                    </div>
                 </div>
-                <div class="notification-content">
-                    <div class="user-name">Utilisateur ID <?php echo $notification['id_utilisateur']; ?></div>
-                    <div class="notification-text"><?php echo $notification['message']; ?></div>
-                </div>
-            </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+        <?php } else {
+            echo '<p>Vous n\'avez aucune notification pour le moment.</p>';
+        } ?>
+
+
     </div>
 </div>
 
@@ -171,22 +178,22 @@ $result = mysqli_stmt_get_result($stmt);
 
         // Utilisation de fetch pour appeler le même fichier PHP et mettre à jour le statut de la notification
         fetch('', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'id_notification=' + notificationId
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  // Mettre à jour visuellement la notification
-                  var notificationItem = document.querySelector('[data-notification-id="' + notificationId + '"]');
-                  notificationItem.classList.add('read');
-                  // Supprimer le point rouge
-                  var point = notificationItem.querySelector('.notification-point');
-                  if (point) point.style.display = 'none';
-              }
-          });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id_notification=' + notificationId
+            }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mettre à jour visuellement la notification
+                    var notificationItem = document.querySelector('[data-notification-id="' + notificationId + '"]');
+                    notificationItem.classList.add('read');
+                    // Supprimer le point rouge
+                    var point = notificationItem.querySelector('.notification-point');
+                    if (point) point.style.display = 'none';
+                }
+            });
 
         // Afficher le contenu de la notification dans la modale
         document.querySelector('.modal-body').innerText = notification.message;

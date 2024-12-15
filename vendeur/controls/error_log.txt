@@ -1,0 +1,1 @@
+[2024-12-14 02:00:41] Data truncated for column 'statut_negotiation' at row 1

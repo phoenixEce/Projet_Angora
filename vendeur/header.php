@@ -9,7 +9,7 @@ $user_type = $_SESSION['type_utilisateur'] ?? ''; // Récupérer le type d'utili
 // Fonction de déconnexion
 if (isset($_GET['logout'])) {
     session_destroy();
-    header("Location: index.php"); // Redirection après la déconnexion
+    header("Location: ../index.php"); // Redirection après la déconnexion
     exit();
 }
 
@@ -617,74 +617,27 @@ if (isset($_GET['logout'])) {
             <div class="col-md-2">
                 <div class="sidebar">
                     <nav class="nav flex-column">
-                        <!-- Home -->
-                        <a href="index.php" class="nav-link">
-                            <i class="bi bi-house-door"></i>
-                            <span>Home</span>
-                        </a>
-
-                        <!-- Catégorie Dropdown -->
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-folder"></i>
-                                <span>Catégorie</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Articles rares</a></li>
-                                <li><a class="dropdown-item" href="#">Articles haut de gamme</a></li>
-                                <li><a class="dropdown-item" href="#">Articles réguliers</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Filtrer Dropdown -->
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-sliders"></i>
-                                <span>Filtrer</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Achat immédiat</a></li>
-                                <li><a class="dropdown-item" href="#">Transactions</a></li>
-                                <li><a class="dropdown-item" href="#">Meilleure offre</a></li>
-                            </ul>
-                        </div>
-
                         <!-- Vérification du rôle de l'utilisateur -->
                         <?php if ($is_logged_in): ?>
-                            <?php if ($user_type == 'Administrateur'): ?>
-                                <!-- Menu Admin -->
-                                <a href="admin_dashboard.php" class="nav-link">
-                                    <i class="bi bi-person-badge"></i>
-                                    <span>Dashboard Admin</span>
-                                </a>
-                                <a href="manage_users.php" class="nav-link">
-                                    <i class="bi bi-person-lines-fill"></i>
-                                    <span>Gérer les utilisateurs</span>
-                                </a>
-                            <?php elseif ($user_type == 'Vendeur'): ?>
+                            
+                            <?php if ($user_type == 'Vendeur'): ?>
                                 <!-- Menu Vendeur -->
                                 <a href="vendeur/dashboard_sales.php" class="nav-link">
                                     <i class="bi bi-bag"></i>
                                     <span>Dashboard Vendeur</span>
                                 </a>
-                                <a href="vendeur_articles.php" class="nav-link">
+                                <a href="product-list-sales.php" class="nav-link">
                                     <i class="bi bi-box"></i>
                                     <span>Mes Articles</span>
                                 </a>
-                            <?php elseif ($user_type == 'Client'): ?>
-                                <!-- Menu Client -->
-                                <a href="client_dashboard.php" class="nav-link">
-                                    <i class="bi bi-person"></i>
-                                    <span>Dashboard Client</span>
-                                </a>
-                                <a href="mes_commandes.php" class="nav-link">
-                                    <i class="bi bi-cart-check"></i>
-                                    <span>Mes Commandes</span>
+                                <a href="product-nego-sales.php" class="nav-link">
+                                    <i class="bi bi-box"></i>
+                                    <span>Mes négociations</span>
                                 </a>
                             <?php endif; ?>
                         <?php else: ?>
                             <!-- Lien de connexion -->
-                            <a href="signin.php" class="nav-link">
+                            <a href="../signin.php" class="nav-link">
                                 <i class="bi bi-box-arrow-in-right"></i>
                                 <span>Se connecter</span>
                             </a>
@@ -732,7 +685,7 @@ if (isset($_GET['logout'])) {
                                     <?php if ($is_logged_in): ?>
                                         <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
                                     <?php else: ?>
-                                        <a href="signin.php" class="btn btn-icon me-2"><i class="bi bi-box-arrow-in-right fs-5"></i></a>
+                                        <a href="../signin.php" class="btn btn-icon me-2"><i class="bi bi-box-arrow-in-right fs-5"></i></a>
                                     <?php endif; ?>
                                     <button class="btn btn-icon me-2"><i class="bi bi-cart fs-5"></i></button>
                                     <button class="btn btn-icon"><i class="bi bi-bell fs-5"></i></button>

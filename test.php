@@ -3,244 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de facturation</title>
-    <!-- Bootstrap CSS -->
+    <title>Vos différents produits</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .form-container {
+        .product-list {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 30px auto;
         }
-
-        .form-control {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 12px;
-        }
-
-        .form-label {
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .required::after {
-            content: "*";
-            color: #dc3545;
-            margin-left: 4px;
-        }
-
-        .order-summary {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-        }
-
-        .product-item {
+        .header-title {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-
-        .product-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .payment-methods {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .payment-methods img {
+        .blue-bar {
+            width: 4px;
             height: 24px;
-            object-fit: contain;
+            background-color: #00a8ff;
         }
-
-        .promo-container {
+        .product-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .product-image {
+            width: 100%;
+            max-width: 130px;
+            height: auto;
+            object-fit: cover;
+        }
+        .product-info {
             display: flex;
-            gap: 12px;
-            margin: 24px 0;
-        }
-
-        .btn-apply {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 4px;
-        }
-
-        .btn-order {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 4px;
+            flex-direction: column;
+            justify-content: space-between;
             width: 100%;
         }
-
-        .btn-cancel {
-            background: #052c65;
-            color: white;
-            border: none;
-            padding: 12px 32px;
+        .stock-status {
+            padding: 5px 10px;
             border-radius: 4px;
-            width: 100%;
-        }
-
-        .warning-text {
-            color: #dc3545;
             font-size: 14px;
-            margin-top: 24px;
+        }
+        .in-stock {
+            color: #00b894;
+        }
+        .out-of-stock {
+            color: #00a8ff;
+        }
+        .btn-buy {
+            background-color: #00a8ff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+        .btn-delete {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+        .btn-buy-all {
+            background-color: #00a8ff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+        .total-amount {
+            background-color: #00b894;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+        }
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .product-info {
+                margin-top: 15px;
+            }
+            .header-actions {
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <form>
-            <div class="row">
-                <!-- Left Column - Personal Details -->
-                <div class="col-md-6 mb-4">
-                    <h2 class="mb-4">Détails de facturation</h2>
-                    
-                    <div class="mb-3">
-                        <label class="form-label required">Nom</label>
-                        <input type="text" class="form-control" required>
+    <div class="container">
+        <div class="product-list">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="header-title">
+                        <div class="blue-bar"></div>
+                        <h2 class="m-0">Vos différents produits</h2>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Prénom</label>
-                        <input type="text" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <div class="header-actions justify-content-md-end">
+                        <span class="total-amount mb-2 mb-md-0">Total: 879€</span>
+                        <button class="btn-buy-all">Tout acheter</button>
                     </div>
+                </div>
+            </div>
 
-                    <div class="mb-3">
-                        <label class="form-label required">Code postal</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Adresse</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Numéro de téléphone</label>
-                        <input type="tel" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label required">Email</label>
-                        <input type="email" class="form-control" required>
+            <!-- Products -->
+            <div class="products-container">
+                <!-- Product 1 -->
+                <div class="product-item">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4">
+                            <img src="couronne.jpg" alt="Couronne en diamant" class="product-image img-fluid">
+                        </div>
+                        <div class="col-md-10 col-sm-8">
+                            <div class="product-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3 class="h5 mb-2">Couronne en diamant</h3>
+                                        <p class="text-muted mb-2">Achat par vente immédiat</p>
+                                        <button class="btn-buy mb-3 mb-md-0">Acheter</button>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <p class="h5 mb-2">399€</p>
+                                        <p class="stock-status in-stock mb-2">En stock</p>
+                                        <button class="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal1">Supprimer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Column - Order Summary -->
-                <div class="col-md-6">
-                    <div class="order-summary">
-                        <!-- Products -->
-                        <div class="product-item">
-                            <img src="lcd-monitor.jpg" alt="LCD Monitor" class="product-image">
-                            <div class="flex-grow-1">LCD Monitor</div>
-                            <div class="fw-bold">650€</div>
+                <!-- Product 2 -->
+                <div class="product-item">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4">
+                            <img src="jeans.jpg" alt="Pantalons jeans femme" class="product-image img-fluid">
                         </div>
-
-                        <div class="product-item">
-                            <img src="gamepad.jpg" alt="H1 Gamepad" class="product-image">
-                            <div class="flex-grow-1">H1 Gamepad</div>
-                            <div class="fw-bold">1100€</div>
-                        </div>
-
-                        <!-- Totals -->
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>Livraison:</div>
-                            <div>gratuite</div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-4">
-                            <div>Sous total:</div>
-                            <div class="fw-bold">1750€</div>
-                        </div>
-
-                        <!-- Payment Options -->
-                        <div class="mb-3">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="payment" id="bank">
-                                <label class="form-check-label" for="bank">
-                                    Bank
-                                </label>
-                            </div>
-                            <div class="payment-methods">
-                                <img src="visa.png" alt="Visa">
-                                <img src="mastercard.png" alt="Mastercard">
-                                <img src="paypal.png" alt="PayPal">
-                                <img src="apple-pay.png" alt="Apple Pay">
-                                <img src="google-pay.png" alt="Google Pay">
+                        <div class="col-md-10 col-sm-8">
+                            <div class="product-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3 class="h5 mb-2">Pantalons jeans femme</h3>
+                                        <p class="text-muted mb-2">Achat par vente immédiat</p>
+                                        <button class="btn-buy mb-3 mb-md-0">Acheter</button>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <p class="h5 mb-2">129€</p>
+                                        <p class="stock-status in-stock mb-2">En stock</p>
+                                        <button class="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal2">Supprimer</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" id="delivery" checked>
-                                <label class="form-check-label" for="delivery">
-                                    Payer à la livraison
-                                </label>
-                            </div>
+                <!-- Product 3 -->
+                <div class="product-item">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4">
+                            <img src="robe.jpg" alt="Robe d'opéra femme" class="product-image img-fluid">
                         </div>
-
-                        <!-- Promo Code -->
-                        <div class="promo-container">
-                            <input type="text" class="form-control" placeholder="Code promo">
-                            <button type="button" class="btn-apply">Appliquer</button>
-                        </div>
-
-                        <!-- Total -->
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="fw-bold">Total:</div>
-                            <div class="fw-bold">1750€</div>
-                        </div>
-
-                        <!-- Terms -->
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" required>
-                                <label class="form-check-label">
-                                    J'ai lu et j'accepte les conditions générales et la politique de confidentialité
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Sauvegarder ces informations pour un vérification rapide la prochaine fois
-                                </label>
-                            </div>
-                        </div>
-
-                        <p class="warning-text">
-                            <i class="bi bi-exclamation-circle"></i>
-                            Les commandes sont définitives et ne peuvent être annulées après 24 heures.
-                        </p>
-
-                        <!-- Action Buttons -->
-                        <div class="row g-2 mt-4">
-                            <div class="col">
-                                <button type="submit" class="btn-order">Commander</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn-cancel">Annuler</button>
+                        <div class="col-md-10 col-sm-8">
+                            <div class="product-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3 class="h5 mb-2">Robe d'opéra femme</h3>
+                                        <p class="text-muted mb-2">Achat par vente immédiat</p>
+                                        <button class="btn-buy mb-3 mb-md-0">Acheter</button>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <p class="h5 mb-2">299€</p>
+                                        <p class="stock-status out-of-stock mb-2">Stock épuisé</p>
+                                        <button class="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal3">Supprimer</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Delete Modal for Product 1 -->
+    <div class="modal fade" id="deleteModal1" tabindex="-1" aria-labelledby="deleteModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel1">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer la Couronne en diamant ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteProduct(1)">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal for Product 2 -->
+    <div class="modal fade" id="deleteModal2" tabindex="-1" aria-labelledby="deleteModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel2">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer les Pantalons jeans femme ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteProduct(2)">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal for Product 3 -->
+    <div class="modal fade" id="deleteModal3" tabindex="-1" aria-labelledby="deleteModalLabel3" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel3">Confirmer la suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer la Robe d'opéra femme ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteProduct(3)">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function deleteProduct(productId) {
+            // Ici, vous pouvez ajouter la logique pour supprimer le produit
+            console.log(`Suppression du produit ${productId}`);
+            // Fermer le modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById(`deleteModal${productId}`));
+            modal.hide();
+            // Vous pouvez ajouter ici la logique pour retirer le produit de la liste
+        }
+    </script>
 </body>
 </html>
+

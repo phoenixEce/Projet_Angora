@@ -1,3 +1,57 @@
+<?php
+// Configuration de la base de données
+$host = 'localhost';
+$dbname = 'agora';
+$username = 'root'; 
+$password = 'root'; 
+
+try {
+    // Connexion à la base de données
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $email = htmlspecialchars($_POST['email']);
+        $adresse = htmlspecialchars($_POST['adresse']);
+        $ville = htmlspecialchars($_POST['ville']);
+        $code_postal = htmlspecialchars($_POST['code_postal']);
+        $pays = htmlspecialchars($_POST['pays']);
+        $telephone = htmlspecialchars($_POST['telephone']);
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $type_utilisateur = htmlspecialchars($_POST['type_utilisateur']);
+
+        
+        $sql = "INSERT INTO Utilisateur (nom, prenom, email, mot_de_passe, adresse_ligne1, ville, code_postal, pays, numero_telephone, type_utilisateur) 
+                VALUES (:nom, :prenom, :email, :mot_de_passe, :adresse_ligne1, :ville, :code_postal, :pays, :numero_telephone, :type_utilisateur)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':email' => $email,
+            ':mot_de_passe' => $password,
+            ':adresse_ligne1' => $adresse,
+            ':ville' => $ville,
+            ':code_postal' => $code_postal,
+            ':pays' => $pays,
+            ':numero_telephone' => $telephone,
+            ':type_utilisateur' => $type_utilisateur
+        ]);
+
+        
+        header('Location: signin.php');
+        exit();
+    }
+} catch (PDOException $e) {
+    
+    header('Location: register.php?error=' . urlencode('Erreur: ' . $e->getMessage()));
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -163,7 +217,7 @@
             <!-- Image Section -->
             <div class="col-md-6 d-none d-md-block p-0">
                 <div class="image-container">
-                    <img src="images/montre 1.png"
+                    <img src="images/montre1.png"
                         alt="Luxury Watch"
                         class="img-cover">
                 </div>
