@@ -7,7 +7,7 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
     $articleId = intval($_POST['id']);
 
     // Préparer la requête pour supprimer l'article
-    $query = "DELETE FROM article WHERE id = ?";
+    $query = "DELETE FROM article WHERE id_article = ?";
     $stmt = $connection->prepare($query);
     $stmt->bind_param("i", $articleId);
 

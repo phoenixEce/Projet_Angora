@@ -1,8 +1,17 @@
 <?php
-    include "../header.php";
+include "../header.php";
+
+include "../db_connection.php";
+
+$id = $_GET["id"];
+
+$query = "SELECT * FROM article WHERE statut = 'disponible' AND id_article = " . $id . "";
+$result = mysqli_query($connection, $query);
+
+$product = mysqli_fetch_assoc($result);
 ?>
-    <style>
-/*         .form-container {
+<style>
+    /*         .form-container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
@@ -19,82 +28,83 @@
             margin-bottom: 8px;
         } */
 
-        .required::after {
-            content: "*";
-            color: #dc3545;
-            margin-left: 4px;
-        }
+    .required::after {
+        content: "*";
+        color: #dc3545;
+        margin-left: 4px;
+    }
 
-        .order-summary {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-        }
+    .order-summary {
+        background: #fff;
+        border-radius: 8px;
+        padding: 24px;
+    }
 
-        .product-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
+    .product-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
 
-        .product-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+    .product-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
 
-        .payment-methods {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
+    .payment-methods {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+    }
 
-        .payment-methods img {
-            height: 24px;
-            object-fit: contain;
-        }
+    .payment-methods img {
+        height: 24px;
+        object-fit: contain;
+    }
 
-        .promo-container {
-            display: flex;
-            gap: 12px;
-            margin: 24px 0;
-        }
+    .promo-container {
+        display: flex;
+        gap: 12px;
+        margin: 24px 0;
+    }
 
-        .btn-apply {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 4px;
-        }
+    .btn-apply {
+        background: #0dcaf0;
+        color: white;
+        border: none;
+        padding: 8px 24px;
+        border-radius: 4px;
+    }
 
-        .btn-order {
-            background: #0dcaf0;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 4px;
-            width: 100%;
-        }
+    .btn-order {
+        background: #0dcaf0;
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 4px;
+        width: 100%;
+    }
 
-        .btn-cancel {
-            background: #052c65;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 4px;
-            width: 100%;
-        }
+    .btn-cancel {
+        background: #052c65;
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 4px;
+        width: 100%;
+    }
 
-        .warning-text {
-            color: #dc3545;
-            font-size: 14px;
-            margin-top: 24px;
-        }
-    </style>
+    .warning-text {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 24px;
+    }
+</style>
 </head>
+
 <body>
     <div class="form-container mt-4">
         <form>
@@ -102,7 +112,7 @@
                 <!-- Left Column - Personal Details -->
                 <div class="col-md-6 mb-4">
                     <h2 class="mb-4">Détails de facturation</h2>
-                    
+
                     <div class="mb-3">
                         <label class="form-label required">Nom</label>
                         <input type="text" class="form-control p-3" required>
@@ -237,4 +247,4 @@
 
     <?php
     include "../footer.php";
-?>
+    ?>

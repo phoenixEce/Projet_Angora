@@ -35,7 +35,7 @@ try {
                 if ($user['type_utilisateur'] == "Vendeur") {
                     header('Location: vendeur/dashboard_sales.php');
                 } elseif ($user['type_utilisateur'] == "Client") {
-                    header('Location: index.php');
+                    header('Location: client/mes_commandes.php');
                 }elseif ($user['type_utilisateur'] == "Administrateur") {
                     header('Location: dashboard_admin.php');
                 }

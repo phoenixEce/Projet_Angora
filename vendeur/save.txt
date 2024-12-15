@@ -1,0 +1,124 @@
+
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="sidebar">
+                    <nav class="nav flex-column">
+                        <!-- Home -->
+                        <a href="index.php" class="nav-link">
+                            <i class="bi bi-house-door"></i>
+                            <span>Home</span>
+                        </a>
+
+                        <!-- Catégorie Dropdown -->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-folder"></i>
+                                <span>Catégorie</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Articles rares</a></li>
+                                <li><a class="dropdown-item" href="#">Articles haut de gammes</a></li>
+                                <li><a class="dropdown-item" href="#">Articles réguliers</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Filtrer Dropdown -->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-sliders"></i>
+                                <span>Filtrer</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Achat immédiat</a></li>
+                                <li><a class="dropdown-item" href="#">Transactions</a></li>
+                                <li><a class="dropdown-item" href="#">Meilleure offre</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- Settings at bottom -->
+                    <div class="settings-container">
+                        <a href="signin.php" class="nav-link settings-link">
+                            <i class="bi bi-gear"></i>
+                            <span>Paramètres</span>
+                        </a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-folder"></i>
+                                <span>Utilisateurs</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Clients</a></li>
+                                <li><a class="dropdown-item" href="#">Vendeurs</a></li>
+                                <li><a class="dropdown-item" href="#">Articles réguliers</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Filtrer Dropdown -->
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-sliders"></i>
+                                <span>Ventes</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Ventes aux enchères</a></li>
+                                <li><a class="dropdown-item" href="#">Transactions</a></li>
+                                <li><a class="dropdown-item" href="#">Achat immediat</a></li>
+                            </ul>
+                        </div>
+                        <a href="index.php" class="nav-link">
+                            <i class="bi bi-house-door"></i>
+                            <span>Messages</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <header class="border-bottom">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-white bg-light">
+                        <div class="container">
+                            <a class="navbar-brand fw-bold title" href="#">AGORA FRANCIA</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link it" href="index.php">Accueil</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle it" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Tout parcourir
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item it" href="#">Option 1</a></li>
+                                            <li><a class="dropdown-item it" href="#">Option 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link it" href="notification.php">Notifications</a>
+                                    </li>
+                                </ul>
+                                <form class="d-flex me-3 position-relative">
+                                    <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                                    <i class="bi bi-search form-control-icon"></i>
+                                </form>
+                                <div class="d-flex">
+                                    <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
+                                    <button class="btn btn-icon me-2"><i class="bi bi-cart fs-5"></i></button>
+                                    <button class="btn btn-icon"><i class="bi bi-bell fs-5"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </header><br />
+<font size='1'><table class='xdebug-error xe-uncaught-exception' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Fatal error: Uncaught mysqli_sql_exception: Data truncated for column 'statut_negotiation' at row 1 in C:\wamp64\www\Agora\client\vente-enchere.php on line <i>39</i></th></tr>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> mysqli_sql_exception: Data truncated for column 'statut_negotiation' at row 1 in C:\wamp64\www\Agora\client\vente-enchere.php on line <i>39</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0001</td><td bgcolor='#eeeeec' align='right'>446640</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp64\www\Agora\client\vente-enchere.php' bgcolor='#eeeeec'>...\vente-enchere.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0130</td><td bgcolor='#eeeeec' align='right'>591568</td><td bgcolor='#eeeeec'>insertOrUpdateNegotiation( <span>$connection = </span><span>class mysqli { public string|int $affected_rows = *uninitialized*; public string $client_info = *uninitialized*; public int $client_version = *uninitialized*; public int $connect_errno = *uninitialized*; public ?string $connect_error = *uninitialized*; public int $errno = *uninitialized*; public string $error = *uninitialized*; public array $error_list = *uninitialized*; public int $field_count = *uninitialized*; public string $host_info = *uninitialized*; public ?string $info = *uninitialized*; public string|int $insert_id = *uninitialized*; public string $server_info = *uninitialized*; public int $server_version = *uninitialized*; public string $sqlstate = *uninitialized*; public int $protocol_version = *uninitialized*; public int $thread_id = *uninitialized*; public int $warning_count = *uninitialized* }</span>, <span>$id_article = </span><span>1</span>, <span>$id_vendeur = </span><span>1</span>, <span>$id_acheteur = </span><span>2</span>, <span>$offre_acheteur = </span><span>9805</span> )</td><td title='C:\wamp64\www\Agora\client\vente-enchere.php' bgcolor='#eeeeec'>...\vente-enchere.php<b>:</b>59</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0297</td><td bgcolor='#eeeeec' align='right'>643864</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.mysqli-stmt-execute' target='_new'>mysqli_stmt_execute</a>( <span>$statement = </span><span>class mysqli_stmt { public string|int $affected_rows = *uninitialized*; public string|int $insert_id = *uninitialized*; public string|int $num_rows = *uninitialized*; public int $param_count = *uninitialized*; public int $field_count = *uninitialized*; public int $errno = *uninitialized*; public string $error = *uninitialized*; public array $error_list = *uninitialized*; public string $sqlstate = *uninitialized*; public int $id = *uninitialized* }</span> )</td><td title='C:\wamp64\www\Agora\client\vente-enchere.php' bgcolor='#eeeeec'>...\vente-enchere.php<b>:</b>39</td></tr>
+</table></font>

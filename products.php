@@ -115,8 +115,7 @@
             margin-right: 8px;
         }
     </style>
-</head>
-<body>
+
     <div class="container py-5">
         <div class="row g-4">
             <div class="col-md-4">

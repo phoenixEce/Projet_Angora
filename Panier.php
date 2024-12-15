@@ -15,11 +15,6 @@
     text-align: center;
     margin-top: 20px;
 } */
-
-  .main {
-    margin-left: 13px;
-  }
-
   .list-group-item {
     display: flex;
     align-items: flex-start;

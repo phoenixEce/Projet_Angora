@@ -2,7 +2,7 @@
 // Informations de connexion
 $host = 'localhost'; // ou l'adresse de votre serveur de base de données
 $username = 'root';
-$password = 'root';
+$password = '';
 $database = 'Agora';
 
 // Création de la connexion

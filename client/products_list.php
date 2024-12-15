@@ -160,7 +160,7 @@ $result = mysqli_query($connection, $query);
                             <div class="product-type"><?php echo $product['type_vente'] ?></div>
                             <div class="product-price"><?php echo $product['prix'] ?>€</div>
                             <?php if ($product['type_vente'] == "Meilleure offre") { ?>
-                                <a href="vente-enchere.php?id=<?php echo $product['id_article'] ?>" class="add-to-cart"><button class="add-to-cart">
+                                <a href="vente_enchere.php?ID=<?php echo $product['id_article'] ?>" class="add-to-cart"><button class="add-to-cart">
                                     <i class="bi bi-cart cart-icon"></i>
                                     Ajouter au panier
                                 </button></a>
