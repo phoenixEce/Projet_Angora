@@ -662,13 +662,17 @@ ob_start();
                                 </a>
                             <?php elseif ($user_type == 'Vendeur'): ?>
                                 <!-- Menu Vendeur -->
-                                <a href="vendeur/dashboard_sales.php" class="nav-link">
+                                <a href="dashboard_sales.php" class="nav-link">
                                     <i class="bi bi-bag"></i>
                                     <span>Dashboard Vendeur</span>
                                 </a>
-                                <a href="vendeur_articles.php" class="nav-link">
+                                <a href="product-list-sales.php" class="nav-link">
                                     <i class="bi bi-box"></i>
                                     <span>Mes Articles</span>
+                                </a>
+                                <a href="product-nego-sales.php" class="nav-link">
+                                    <i class="bi bi-box"></i>
+                                    <span>Mes Négociations</span>
                                 </a>
                             <?php elseif ($user_type == 'Client'): ?>
                                 <!-- Menu Client -->
@@ -734,7 +738,9 @@ ob_start();
                                     <button class="btn btn-icon me-2" onclick="window.location.href='cart.php'">
                                          <i class="bi bi-cart fs-5"></i>
                                     </button>
-                                    <button class="btn btn-icon"><i class="bi bi-bell fs-5"></i></button>
+                                    <button class="btn btn-icon" onclick="window.location.href='localisation.php'">
+                                         <i class="bi bi-geo-alt fs-5"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
