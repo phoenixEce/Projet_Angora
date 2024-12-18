@@ -19,26 +19,6 @@ try {
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }
-
-// Initialiser le panier s'il n'existe pas encore
-if (!isset($_SESSION['panier'])) {
-    $_SESSION['panier'] = [];
-}
-
-// Ajouter un article au panier
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $articleId = $_POST['article_id'];
-    $quantity = $_POST['quantity'] ?? 1;
-
-    if (isset($_SESSION['panier'][$articleId])) {
-        $_SESSION['panier'][$articleId] += $quantity;
-    } else {
-        $_SESSION['panier'][$articleId] = $quantity;
-    }
-
-    header('Location: products.php');
-    exit();
-}
 ?>
 
 <div class="container py-5">
@@ -50,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                     <div class="product-image-container">
                         <img src="<?= htmlspecialchars($article['photo_url']) ?>" alt="<?= htmlspecialchars($article['nom']) ?>" class="product-image">
                         <div class="product-actions">
-                            <button class="action-btn favorite" data-article-id="<?= $article['id_article'] ?>">
-                                <i class="bi bi-heart"></i>
+                            <button class="action-btn favorite <?= in_array($article['id_article'], $_SESSION['favoris'] ?? []) ? 'active' : '' ?>" data-article-id="<?= $article['id_article'] ?>">
+                                <i class="bi <?= in_array($article['id_article'], $_SESSION['favoris'] ?? []) ? 'bi-heart-fill' : 'bi-heart' ?>"></i>
                             </button>
                         </div>
                     </div>
@@ -59,14 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                         <h2 class="product-title"><?= htmlspecialchars($article['nom']) ?></h2>
                         <div class="product-category"><?= htmlspecialchars($article['categorie']) ?></div>
                         <div class="product-price"><?= number_format($article['prix'], 2) ?>€</div>
-                        <form method="POST" class="mt-3">
-                            <input type="hidden" name="article_id" value="<?= $article['id_article'] ?>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" name="add_to_cart" class="add-to-cart">
-                                <i class="bi bi-cart cart-icon"></i>
-                                Ajouter au panier
-                            </button>
-                        </form>
+                        <div class="mt-3">
+                            <a href="product_details.php?id=<?= $article['id_article'] ?>" class="btn btn-primary">
+                                <i class="bi bi-eye"></i> Voir Détail
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,6 @@
 <?php
 include 'header.php';
-
-// Connexion à la base de données
-$host = 'localhost';
-$dbname = 'agora';
-$username = 'root';
-$password = '';
+include 'db_connection.php'; // Assurez-vous que ce fichier gère correctement la connexion à la base de données
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -36,6 +31,37 @@ try {
         </div>
     </section>
 
+    <!-- Section Ventes Flash -->
+    <section class="countdown mt-5">
+        <div class="countdown-container">
+            <span class="today-badge fw-bold">Aujourd'hui</span>
+            <div class="content-wrapper">
+                <h1 class="titleCounting">Ventes Flash</h1>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-label">Jours</div>
+                        <div class="countdown-value" id="days">03</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-label">Heures</div>
+                        <div class="countdown-value" id="hours">23</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-label">Minutes</div>
+                        <div class="countdown-value" id="minutes">19</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-label">Secondes</div>
+                        <div class="countdown-value" id="seconds">56</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Section Produits -->
     <section class="products mt-5">
         <h2 class="text-center mb-4">Nos Produits</h2>
@@ -55,9 +81,14 @@ try {
                 <p class="text-center">Aucun produit disponible pour le moment.</p>
             <?php endif; ?>
         </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-4">
+                <a href="products_by_category.php"><button class="btn btn-primary btn-lg rounded-1 px-5 p-2 mt-5">Tout voir</button></a>
+        </div>
     </section>
 
-    <!-- Autres sections inchangées -->
+    <!-- Section Catégories -->
     <section class="categories mt-5">
         <h2 class="text-center mb-4">Découvrez Nos Catégories</h2>
         <div class="row g-4">
@@ -94,7 +125,6 @@ include 'footer.php';
 ?>
 
 <script>
-    // Compte à rebours dynamique
     const countdown = () => {
         const deadline = new Date("2024-12-31T23:59:59").getTime();
         const now = new Date().getTime();

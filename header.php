@@ -728,11 +728,9 @@ ob_start();
                                     <i class="bi bi-search form-control-icon"></i>
                                 </form>
                                 <div class="d-flex">
-                                    <?php if ($is_logged_in): ?>
-                                        <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
-                                    <?php else: ?>
-                                        <a href="signin.php" class="btn btn-icon me-2"><i class="bi bi-box-arrow-in-right fs-5"></i></a>
-                                    <?php endif; ?>
+                                    <button class="btn btn-icon me-2" onclick="window.location.href='profile1.php'">
+                                         <i class="bi bi-person fs-5"></i>
+                                    </button>
                                     <button class="btn btn-icon me-2" onclick="window.location.href='cart.php'">
                                          <i class="bi bi-cart fs-5"></i>
                                     </button>
