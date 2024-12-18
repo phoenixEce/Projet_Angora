@@ -1,9 +1,19 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start(); // Démarrer la session si elle n'est pas déjà démarrée
-}
+// Commencez une session
+session_start();
 
-ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes de redirection
+// Si l'utilisateur est connecté
+$is_logged_in = isset($_SESSION['id_utilisateur']); // Vérifier si l'utilisateur est connecté
+$user_type = $_SESSION['type_utilisateur'] ?? ''; // Récupérer le type d'utilisateur depuis la session
+
+// Fonction de déconnexion
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: index.php"); // Redirection après la déconnexion
+    exit();
+}
+ob_start();
+/* $user_id = $_SESSION['id_utilisateur']; */
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +23,7 @@ ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes d
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGORA FRANCIA</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arima:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -619,7 +630,7 @@ ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes d
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Articles rares</a></li>
-                                <li><a class="dropdown-item" href="#">Articles haut de gammes</a></li>
+                                <li><a class="dropdown-item" href="#">Articles haut de gamme</a></li>
                                 <li><a class="dropdown-item" href="#">Articles réguliers</a></li>
                             </ul>
                         </div>
@@ -636,42 +647,58 @@ ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes d
                                 <li><a class="dropdown-item" href="#">Meilleure offre</a></li>
                             </ul>
                         </div>
-                    </nav>
-                    <!-- Settings at bottom -->
-                    <div class="settings-container">
-                        <a href="signin.php" class="nav-link settings-link">
-                            <i class="bi bi-gear"></i>
-                            <span>Paramètres</span>
-                        </a>
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-folder"></i>
-                                <span>Utilisateurs</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Clients</a></li>
-                                <li><a class="dropdown-item" href="#">Vendeurs</a></li>
-                                <li><a class="dropdown-item" href="#">Articles réguliers</a></li>
-                            </ul>
-                        </div>
 
-                        <!-- Filtrer Dropdown -->
-                        <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-sliders"></i>
-                                <span>Ventes</span>
+                        <!-- Vérification du rôle de l'utilisateur -->
+                        <?php if ($is_logged_in): ?>
+                            <?php if ($user_type == 'Administrateur'): ?>
+                                <!-- Menu Admin -->
+                                <a href="admin_dashboard.php" class="nav-link">
+                                    <i class="bi bi-person-badge"></i>
+                                    <span>Dashboard Admin</span>
+                                </a>
+                                <a href="manage_users.php" class="nav-link">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                    <span>Gérer les utilisateurs</span>
+                                </a>
+                            <?php elseif ($user_type == 'Vendeur'): ?>
+                                <!-- Menu Vendeur -->
+                                <a href="vendeur/dashboard_sales.php" class="nav-link">
+                                    <i class="bi bi-bag"></i>
+                                    <span>Dashboard Vendeur</span>
+                                </a>
+                                <a href="vendeur_articles.php" class="nav-link">
+                                    <i class="bi bi-box"></i>
+                                    <span>Mes Articles</span>
+                                </a>
+                            <?php elseif ($user_type == 'Client'): ?>
+                                <!-- Menu Client -->
+                                <a href="client_dashboard.php" class="nav-link">
+                                    <i class="bi bi-person"></i>
+                                    <span>Dashboard Client</span>
+                                </a>
+                                <a href="mes_commandes.php" class="nav-link">
+                                    <i class="bi bi-cart-check"></i>
+                                    <span>Mes Commandes</span>
+                                </a>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <!-- Lien de connexion -->
+                            <a href="signin.php" class="nav-link">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                                <span>Se connecter</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Ventes aux enchères</a></li>
-                                <li><a class="dropdown-item" href="#">Transactions</a></li>
-                                <li><a class="dropdown-item" href="#">Achat immediat</a></li>
-                            </ul>
+                        <?php endif; ?>
+
+                        <!-- Paramètres -->
+                        <div class="settings-container">
+                            <?php if ($is_logged_in): ?>
+                                <a href="?logout=true" class="nav-link settings-link">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Se déconnecter</span>
+                                </a>
+                            <?php endif; ?>
                         </div>
-                        <a href="index.php" class="nav-link">
-                            <i class="bi bi-house-door"></i>
-                            <span>Messages</span>
-                        </a>
-                    </div>
+                    </nav>
                 </div>
             </div>
             <div class="col-md-10">
@@ -688,13 +715,9 @@ ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes d
                                         <a class="nav-link it" href="index.php">Accueil</a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle it" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle it" href="products.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Tout parcourir
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item it" href="#">Option 1</a></li>
-                                            <li><a class="dropdown-item it" href="#">Option 2</a></li>
-                                        </ul>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link it" href="notification.php">Notifications</a>
@@ -705,7 +728,11 @@ ob_start(); // Activer la mise en tampon de sortie pour éviter les problèmes d
                                     <i class="bi bi-search form-control-icon"></i>
                                 </form>
                                 <div class="d-flex">
-                                    <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
+                                    <?php if ($is_logged_in): ?>
+                                        <button class="btn btn-icon me-2"><i class="bi bi-person fs-5"></i></button>
+                                    <?php else: ?>
+                                        <a href="signin.php" class="btn btn-icon me-2"><i class="bi bi-box-arrow-in-right fs-5"></i></a>
+                                    <?php endif; ?>
                                     <button class="btn btn-icon me-2" onclick="window.location.href='cart.php'">
                                          <i class="bi bi-cart fs-5"></i>
                                     </button>
